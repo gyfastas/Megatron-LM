@@ -74,7 +74,7 @@ class GPTModel(LanguageModule):
         self.max_position_embeddings = max_sequence_length
         self.rotary_percent = rotary_percent
 
-        if self.pre_process:
+        if self.pre_process: ## Why pre_process determines the embedding type?
             self.embedding = LanguageModelEmbedding(
                 config=self.config,
                 vocab_size=self.vocab_size,
@@ -93,7 +93,7 @@ class GPTModel(LanguageModule):
 
         # Transformer.
         self.decoder = TransformerBlock(
-            config=self.config,
+            config=self.config, ## a global config?
             spec=transformer_layer_spec,
             pre_process=self.pre_process,
             post_process=self.post_process,

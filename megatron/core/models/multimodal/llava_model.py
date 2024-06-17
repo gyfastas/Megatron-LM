@@ -78,7 +78,7 @@ class LLaVAModel(MegatronModule):
         # Map (intermediate) vision model outputs to the language model input dimension.
         self.vision_projection = MultimodalProjector(
             vision_projection_config,
-            vision_projection_layer_spec,
+            vision_projection_layer_spec, ## 这个是用来做什么的?
             vision_projection_type,
             vision_transformer_config.hidden_size,  # input size to the projection.
         )
@@ -140,7 +140,7 @@ class LLaVAModel(MegatronModule):
         """Forward function of the LLaVA model.
 
         Args:
-            images (torch.Tensor): input image of shape [batch, img_h, img_w].
+            images (torch.Tensor): input image of shape [batch, img_h, img_w]. TODO: 支持multiple images / videos. 现在这个仅支持单图. [batch, img_h, img_w] => [num_imgs_total, img_h, img_w] or [batch, max_num_images, img_h, img_w]
             input_ids (torch.Tensor): input text ids [batch, text_seq_len].
             position_ids (torch.Tensor): input text position ids [batch, text_seq_len].
             attention_mask (torch.Tensor): attention mask for the language model [batch, 1, combined_seq_len, combined_seq_len].
@@ -169,6 +169,7 @@ class LLaVAModel(MegatronModule):
             image_embeddings = image_embeddings.permute(1, 0, 2)  # [img_seq_len, b, h_vision]
 
             # map vision model output size to language model input size.
+            ## TODO: add multiple images support
             image_embeddings = self.vision_projection(
                 image_embeddings
             )  # [img_seq_len, b, h_vision]
