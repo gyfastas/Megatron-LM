@@ -37,6 +37,9 @@ class MockMultimodalDataset(MockGPTDataset):
 
 
     This is unused at the moment and may be missing features. Follow-up changes will use this.
+
+    这里将对sample的处理下放到preprocess function里面. 
+    注意: 这里'image'没有实际的读取逻辑. 实际的读取逻辑在哪里?
     """
 
     def __getitem__(self, idx: int) -> Dict[str, torch.Tensor]:

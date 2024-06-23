@@ -17,7 +17,10 @@ LowLevelDataset = Union[IndexedDataset, Iterable]
 
 
 class MegatronDataset(ABC, torch.utils.data.Dataset):
-    """The highest level wrapper class from which all dataset classes should inherit
+    """
+    一个基类, 定义了相关的初始化接口以及方法
+
+    The highest level wrapper class from which all dataset classes should inherit
 
     Args:
         dataset (LowLevelDataset): The dataset around which to build the MegatronDataset

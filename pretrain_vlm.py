@@ -83,7 +83,7 @@ def train_valid_test_datasets_provider(train_val_test_num_samples):
         train_ds, val_ds, test_ds (megatron.core.datasets.multimodal_dataset.MockMultimodalDataset): Train, validation, and test datasets, respectively.
     """
     args = get_args()
-
+    # TODO: check 这里面的config key
     config = MultimodalDatasetConfig(
         random_seed=args.seed,
         split=args.split,
@@ -99,6 +99,7 @@ def train_valid_test_datasets_provider(train_val_test_num_samples):
 
     print_rank_0("> building train, validation, and test datasets for multimodal ...")
 
+    # TODO: check这个Builder的逻辑
     train_ds, valid_ds, test_ds = BlendedMegatronDatasetBuilder(
         MockMultimodalDataset, train_val_test_num_samples, is_dataset_built_on_rank, config
     ).build()
